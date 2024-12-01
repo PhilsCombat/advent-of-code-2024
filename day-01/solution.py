@@ -6,7 +6,9 @@ from ansi.color import fg
 def row_to_tuple(row: str) -> tuple[int]:
     filtered = filter(lambda x: x!='', row.strip().split(' '))
     converted = map(int, filtered)
-    return tuple(converted)
+    output = tuple(converted)
+    assert len(output) == 2
+    return output
 
 
 def main():
@@ -34,3 +36,5 @@ if __name__ == "__main__":
         main()
     except OSError as err:
         print(fg.red(f"failed to read input file: {err}"))
+    except (ValueError, TypeError) as err:
+        print(fg.red(f"found non integer in input: {err}"))
